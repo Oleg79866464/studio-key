@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru" style="scroll-behavior: auto;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="page_title">Studio Key — Разработка сайтов под ключ</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%233b82f6' width='100' height='100' rx='20'/><text x='50' y='68' font-size='60' text-anchor='middle' fill='white' font-weight='bold'>SK</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%233b82f6' width='100' height='100' rx='20'/><text x='50' y='68' font-size='60' text-anchor='middle' fill='white' font-weight='bold'>SK</text></svg>">
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        <span>Studio Key</span>
+      </a>
+      
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="#services" class="nav-link" data-i18n="nav_services">Услуги</a></li>
+          <li><a href="#portfolio" class="nav-link" data-i18n="nav_portfolio">Портфолио</a></li>
+          <li><a href="#calculator" class="nav-link" data-i18n="nav_calc">Калькулятор</a></li>
+          <li><a href="#pricing" class="nav-link" data-i18n="nav_prices">Цены</a></li>
+          <li><a href="#contacts" class="nav-link" data-i18n="nav_contacts">Контакты</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        <a href="tel:+79292282754" class="header-phone">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          +7 (929) 228-27-54
+        </a>
+        
+        <button id="langSwitch" class="lang-switch">
+          <span class="lang-part lang-active">RU</span> / <span class="lang-part lang-inactive">EN</span>
+        </button>
+        
+        <div class="header-avatar">SK</div>
+      </div>
+      
+      <button class="burger" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-slider">
+      <div class="slider-container">
+        <div class="slide active" style="background-image: linear-gradient(rgba(11,17,32,0.7), rgba(11,17,32,0.8)), url('https://picsum.photos/seed/sk1/1920/1080');">
+          <div class="container slide-content">
+            <div class="slide-kicker" data-i18n="slide1_kicker">🚀 Профессиональная разработка</div>
+            <h1 data-i18n="slide1_title">Сайты, которые приносят прибыль</h1>
+            <p class="slide-subtitle" data-i18n="slide1_sub">Современные, быстрые и адаптивные решения для бизнеса. Запуск за 10-21 день.</p>
+            <div class="slide-actions">
+              <a href="#calculator" class="btn btn-primary" data-i18n="slide1_btn1">Рассчитать стоимость</a>
+              <a href="#portfolio" class="btn btn-ghost" data-i18n="slide1_btn2">Наши работы</a>
+            </div>
+          </div>
+        </div>
+        <div class="slide" style="background-image: linear-gradient(rgba(11,17,32,0.7), rgba(11,17,32,0.8)), url('https://picsum.photos/seed/sk2/1920/1080');">
+          <div class="container slide-content">
+            <div class="slide-kicker" data-i18n="slide2_kicker">💼 80+ успешных проектов</div>
+            <h1 data-i18n="slide2_title">От лендинга до интернет-магазина</h1>
+            <p class="slide-subtitle" data-i18n="slide2_sub">Любая сложность: от простых страниц до сложных CRM-систем и маркетплейсов.</p>
+            <div class="slide-actions">
+              <a href="#calculator" class="btn btn-primary" data-i18n="slide2_btn1">Калькулятор</a>
+              <a href="https://wa.me/79292282754" class="btn btn-ghost" target="_blank" data-i18n="slide2_btn2">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+        <div class="slide" style="background-image: linear-gradient(rgba(11,17,32,0.7), rgba(11,17,32,0.8)), url('https://picsum.photos/seed/sk3/1920/1080');">
+          <div class="container slide-content">
+            <div class="slide-kicker" data-i18n="slide3_kicker">👨‍💻 Команда профессионалов</div>
+            <h1 data-i18n="slide3_title">Поддержка 24/7 и гарантия</h1>
+            <p class="slide-subtitle" data-i18n="slide3_sub">Не бросаем после запуска. Техническая поддержка, обучение, доработки. Гарантия 6 месяцев.</p>
+            <div class="slide-actions">
+              <a href="#contacts" class="btn btn-primary" data-i18n="slide3_btn1">Получить консультацию</a>
+              <a href="#services" class="btn btn-ghost" data-i18n="slide3_btn2">Узнать больше</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="slider-nav slider-prev" aria-label="Назад">❮</button>
+      <button class="slider-nav slider-next" aria-label="Вперёд">❯</button>
+      <div class="slider-dots">
+        <button class="dot active" aria-label="Слайд 1"></button>
+        <button class="dot" aria-label="Слайд 2"></button>
+        <button class="dot" aria-label="Слайд 3"></button>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <div class="container video-wrapper">
+        <div class="video-placeholder" id="openVideoBtn">
+          <img src="https://picsum.photos/seed/skvid/800/450" alt="Видео о студии">
+          <div class="video-play-btn">
+            <span class="play-icon">▶</span>
+            <span data-i18n="video_btn">Смотреть видео о нас</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <h2 data-i18n="video_title">Как мы создаём сайты</h2>
+          <p data-i18n="video_desc">Посмотрите 2-минутное видео о нашем подходе. Узнайте, почему клиенты выбирают нас.</p>
+          <ul>
+            <li data-i18n="vf1">✅ Прозрачный процесс</li>
+            <li data-i18n="vf2">✅ Еженедельные отчёты</li>
+            <li data-i18n="vf3">✅ Индивидуальный дизайн</li>
+            <li data-i18n="vf4">✅ Гарантия 6 месяцев</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section calculator-section" id="calculator">
+      <div class="container">
+        <div class="section-header">
+          <h2 data-i18n="calc_title">Калькулятор стоимости</h2>
+          <p data-i18n="calc_desc">Рассчитайте предварительную стоимость за 1 минуту</p>
+        </div>
+        <div class="calculator-wrapper">
+          <p data-i18n="calc_type">Тип сайта:</p>
+          <div class="radio-group">
+            <label class="radio-card"><input type="radio" name="siteType" value="landing" checked><div class="radio-content"><span data-i18n="type_landing">Лендинг</span><span class="radio-price">15 000₽</span></div></label>
+            <label class="radio-card"><input type="radio" name="siteType" value="corporate"><div class="radio-content"><span data-i18n="type_corp">Корпоративный</span><span class="radio-price">40 000₽</span></div></label>
+            <label class="radio-card"><input type="radio" name="siteType" value="shop"><div class="radio-content"><span data-i18n="type_shop">Интернет-магазин</span><span class="radio-price">80 000₽</span></div></label>
+          </div>
+          <p style="margin-top:20px;" data-i18n="calc_extras">Дополнительно:</p>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="extras" data-price="10000"><span data-i18n="extra_design">Уникальный дизайн</span><span class="checkbox-price">+10 000₽</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="extras" data-price="5000"><span data-i18n="extra_seo">SEO-оптимизация</span><span class="checkbox-price">+5 000₽</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="extras" data-price="7000"><span data-i18n="extra_cms">CMS управление</span><span class="checkbox-price">+7 000₽</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="extras" data-price="8000"><span data-i18n="extra_app">Мобильное приложение</span><span class="checkbox-price">+8 000₽</span></label>
+          </div>
+          <div class="calc-total">
+            <span data-i18n="calc_total">Примерная стоимость:</span>
+            <span id="totalPrice" class="total-price">15 000 ₽</span>
+          </div>
+          <button class="btn btn-primary open-callback" style="width:100%; margin-top:15px;" data-i18n="calc_btn">Заказать со скидкой 10%</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section advantages">
+      <div class="container">
+        <div class="section-header">
+          <h2 data-i18n="adv_title">Почему выбирают нас</h2>
+          <p data-i18n="adv_desc">Берём на себя весь цикл создания сайта</p>
+        </div>
+        <div class="grid advantages-grid">
+          <div class="card" data-animate><div class="card-icon">⚡</div><h3 data-i18n="adv1_title">Быстро</h3><p data-i18n="adv1_desc">Запуск от 10 дней без потери качества</p></div>
+          <div class="card" data-animate><div class="card-icon">⭐</div><h3 data-i18n="adv2_title">Качественно</h3><p data-i18n="adv2_desc">Продуманный UX, чистый код, надёжная архитектура</p></div>
+          <div class="card" data-animate><div class="card-icon">📱</div><h3 data-i18n="adv3_title">Адаптивно</h3><p data-i18n="adv3_desc">Идеально работает на телефонах, планшетах и ПК</p></div>
+          <div class="card" data-animate><div class="card-icon">🚀</div><h3 data-i18n="adv4_title">SEO-готово</h3><p data-i18n="adv4_desc">Техническая оптимизация с нуля: скорость, структура, микроразметка</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services section-alt" id="services">
+      <div class="container">
+        <div class="section-header">
+          <h2 data-i18n="services_title">Услуги и тарифы</h2>
+          <p data-i18n="services_desc">Выберите подходящий формат</p>
+        </div>
+        <div class="grid services-grid" id="pricing">
+          <div class="card service-card active" data-animate>
+            <div class="service-badge" data-i18n="badge_popular">Популярно</div>
+            <h3 data-i18n="svc_landing">Лендинг</h3>
+            <p data-i18n="svc_landing_desc">Одностраничный сайт для быстрого запуска рекламных кампаний.</p>
+            <div class="service-price" data-base-rub="15000">15 000 ₽</div>
+            <ul class="service-list"><li data-i18n="sl1">✓ 1-2 экрана + формы</li><li data-i18n="sl2">✓ Адаптивная вёрстка</li><li data-i18n="sl3">✓ Базовое SEO</li><li data-i18n="sl4">✓ Хостинг + домен .RU</li></ul>
+            <button class="btn btn-primary open-callback" data-i18n="btn_order_landing">Заказать лендинг</button>
+          </div>
+          <div class="card service-card" data-animate>
+            <h3 data-i18n="svc_corp">Корпоративный сайт</h3>
+            <p data-i18n="svc_corp_desc">Представительский сайт с разделами, блогом и интеграциями.</p>
+            <div class="service-price" data-base-rub="40000">40 000 ₽</div>
+            <ul class="service-list"><li data-i18n="sc1">✓ До 10 страниц</li><li data-i18n="sc2">✓ CMS управление</li><li data-i18n="sc3">✓ Интеграции (CRM, карты)</li><li data-i18n="sc4">✓ Многоязычность</li></ul>
+            <button class="btn btn-ghost open-callback" data-i18n="btn_discuss">Обсудить проект</button>
+          </div>
+          <div class="card service-card" data-animate>
+            <h3 data-i18n="svc_shop">Интернет-магазин</h3>
+            <p data-i18n="svc_shop_desc">Полноценный магазин с каталогом, корзиной и онлайн-оплатой.</p>
+            <div class="service-price" data-base-rub="80000">80 000 ₽</div>
+            <ul class="service-list"><li data-i18n="ss1">✓ Каталог и карточки</li><li data-i18n="ss2">✓ Корзина + оплата</li><li data-i18n="ss3">✓ Личный кабинет</li><li data-i18n="ss4">✓ Аналитика продаж</li></ul>
+            <button class="btn btn-ghost open-callback" data-i18n="btn_launch_shop">Запустить магазин</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section portfolio" id="portfolio">
+      <div class="container">
+        <div class="section-header">
+          <h2 data-i18n="portfolio_title">Портфолио</h2>
+          <p data-i18n="portfolio_desc">Недавние проекты для клиентов из разных сфер</p>
+        </div>
+        <div class="grid portfolio-grid">
+          <a href="#" class="portfolio-item" data-animate><div class="portfolio-image"><img src="https://picsum.photos/seed/fin/600/400" alt=""></div><div class="portfolio-info"><h3 data-i18n="pt1">FinTech Платёжная система</h3><p data-i18n="p1">Корпоративный сайт с интеграцией API.</p></div></a>
+          <a href="#" class="portfolio-item" data-animate><div class="portfolio-image"><img src="https://picsum.photos/seed/saas/600/400" alt=""></div><div class="portfolio-info"><h3 data-i18n="pt2">SaaS Управление проектами</h3><p data-i18n="p2">Лендинг для B2B продукта.</p></div></a>
+          <a href="#" class="portfolio-item" data-animate><div class="portfolio-image"><img src="https://picsum.photos/seed/dev/600/400" alt=""></div><div class="portfolio-info"><h3 data-i18n="pt3">DevOps Платформа</h3><p data-i18n="p3">Сайт-презентация с документацией.</p></div></a>
+          <a href="#" class="portfolio-item" data-animate><div class="portfolio-image"><img src="https://picsum.photos/seed/design/600/400" alt=""></div><div class="portfolio-info"><h3 data-i18n="pt4">Студия Дизайна</h3><p data-i18n="p4">Минималистичное портфолио.</p></div></a>
+          <a href="#" class="portfolio-item" data-animate><div class="portfolio-image"><img src="https://picsum.photos/seed/nocode/600/400" alt=""></div><div class="portfolio-info"><h3 data-i18n="pt5">NoCode Конструктор</h3><p data-i18n="p5">Образовательная платформа.</p></div></a>
+          <a href="#" class="portfolio-item" data-animate><div class="portfolio-image"><img src="https://picsum.photos/seed/shop/600/400" alt=""></div><div class="portfolio-info"><h3 data-i18n="pt6">Магазин Электроники</h3><p data-i18n="p6">E-commerce с каталогом и оплатой.</p></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 data-i18n="process_title">Этапы работы</h2>
+          <p data-i18n="process_desc">Прозрачный процесс от заявки до запуска</p>
+        </div>
+        <div class="process-list">
+          <div class="process-step" data-animate><div class="step-number">01</div><div><h3 data-i18n="step1">Заявка и бриф</h3><p data-i18n="step1_desc">Обсуждаем цели, фиксируем требования.</p></div></div>
+          <div class="process-step" data-animate><div class="step-number">02</div><div><h3 data-i18n="step2">Дизайн и прототип</h3><p data-i18n="step2_desc">Создаём структуру и визуальную концепцию.</p></div></div>
+          <div class="process-step" data-animate><div class="step-number">03</div><div><h3 data-i18n="step3">Разработка</h3><p data-i18n="step3_desc">Вёрстка, настройка CMS, интеграции.</p></div></div>
+          <div class="process-step" data-animate><div class="step-number">04</div><div><h3 data-i18n="step4">Тест и запуск</h3><p data-i18n="step4_desc">Проверка, размещение на хостинге, обучение.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contacts" id="contacts">
+      <div class="container">
+        <div class="contact-layout">
+          <div class="contact-info">
+            <h2 data-i18n="contact_title">Расскажите о проекте</h2>
+            <p data-i18n="contact_desc">Ответим в течение рабочего дня с планом и сметой.</p>
+            <ul class="contact-list">
+              <li>📞 <a href="tel:+79292282754">+7 (929) 228-27-54</a></li>
+              <li>✉️ <a href="mailto:hello@studio-key.ru">hello@studio-key.ru</a></li>
+              <li>🕐 <span data-i18n="work_hours">Пн-Пт: 9:00 - 18:00</span></li>
+            </ul>
+            <div class="messengers">
+              <p data-i18n="messengers">Мессенджеры:</p>
+              <div class="msg-links">
+                <a href="https://wa.me/79292282754" class="msg-btn wa">WhatsApp</a>
+                <a href="https://t.me/+79292282754" class="msg-btn tg">Telegram</a>
+                <a href="https://vk.com" class="msg-btn vk">VK</a>
+                <a href="https://max.ru" class="msg-btn max">MAX</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-form-wrapper">
+            <form id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-field"><label data-i18n="f_name">Имя *</label><input type="text" required data-i18n-placeholder="ph_name" placeholder="Как к вам обращаться"></div>
+                <div class="form-field"><label data-i18n="f_phone">Телефон *</label><input type="tel" required data-i18n-placeholder="ph_phone" placeholder="+7 ( ) _ --"></div>
+              </div>
+              <div class="form-field"><label data-i18n="f_email">Email *</label><input type="email" required data-i18n-placeholder="ph_email" placeholder="you@example.com"></div>
+              <div class="form-field"><label data-i18n="f_msg">Сообщение</label><textarea rows="3" data-i18n-placeholder="ph_msg" placeholder="Кратко опишите задачу"></textarea></div>
+              
+              <!-- ✅ ГАЛОЧКА ПОДПИСКИ ПО УМОЛЧАНИЮ -->
+              <label class="modal-subscribe"><input type="checkbox" checked><span data-i18n="f_sub">Подписаться на новости и акции</span></label>
+              
+              <button type="submit" class="btn btn-primary" style="width:100%; margin-top:15px;" data-i18n="f_submit">Отправить заявку</button>
+              <p class="form-note" style="margin-top:10px; font-size:0.8rem; color:var(--text-muted);" data-i18n="f_note">🔒 Данные защищены. Не передаём третьим лицам.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="#" class="logo">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span>Studio Key</span>
+        </a>
+        <p style="margin-top:10px; color:var(--text-muted);" data-i18n="footer_about">Профессиональная разработка сайтов с 2019 года.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="f_links">Ссылки</h4>
+        <ul>
+          <li><a href="#services" data-i18n="nav_services">Услуги</a></li>
+          <li><a href="#portfolio" data-i18n="nav_portfolio">Портфолио</a></li>
+          <li><a href="#pricing" data-i18n="nav_prices">Цены</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="f_legal">Документы</h4>
+        <ul>
+          <li><a href="#" data-i18n="privacy">Политика конфиденциальности</a></li>
+          <li><a href="#" data-i18n="terms">Условия использования</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="f_contacts">Контакты</h4>
+        <ul>
+          <li>📞 +7 (929) 228-27-54</li>
+          <li>✉️ hello@studio-key.ru</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 Studio Key. <span data-i18n="rights">Все права защищены.</span></p>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookieBanner">
+    <span data-i18n="cookie_text">💬 Мы используем cookies для улучшения сайта.</span>
+    <button class="btn btn-small btn-primary" id="acceptCookiesBtn" data-i18n="cookie_accept">Принять</button>
+  </div>
+
+  <div class="modal" id="callbackModal">
+    <div class="modal-content">
+      <button class="modal-close" data-modal-close="callbackModal">&times;</button>
+      <h2 data-i18n="modal_cb_title">Заказать звонок</h2>
+      <p style="margin-bottom:15px; color:var(--text-muted);" data-i18n="modal_cb_desc">Оставьте имя и номер, перезвоним за 5 минут</p>
+      <form id="callbackForm" novalidate class="modal-form">
+        <input type="text" required data-i18n-placeholder="ph_name" placeholder="Как к вам обращаться">
+        <input type="tel" required data-i18n-placeholder="ph_phone_modal" placeholder="+7 ( ) _ --">
+        <label class="modal-subscribe"><input type="checkbox" checked><span data-i18n="modal_cb_sub">Подписаться на рассылку</span></label>
+        <button type="submit" class="btn btn-primary" data-i18n="modal_cb_btn">Жду звонка</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="videoModal">
+    <div class="modal-content video-content" style="max-width:800px;">
+      <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+      <div class="video-container"><iframe id="videoFrame" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+    </div>
+  </div>
+
+  <div class="ai-chat">
+    <button class="chat-toggle" id="chatToggle">💬</button>
+    <div class="chat-window">
+      <div class="chat-header">
+        <span data-i18n="chat_title">💬 AI Ассистент</span>
+        <button class="chat-close">&times;</button>
+      </div>
+      <div class="chat-messages" id="chatMessages"><div class="msg bot" data-i18n="chat_welcome">Привет! Я AI-помощник Studio Key. Спросите меня о ценах, сроках или услугах.</div></div>
+      <div class="chat-input">
+        <input type="text" id="chatInput" data-i18n-placeholder="chat_ph" placeholder="Введите вопрос...">
+        <button class="chat-send">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Наверх">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
