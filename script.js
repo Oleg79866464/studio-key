@@ -4,18 +4,18 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// 🔑 GROQ API SETTINGS
-// Ключ больше не хранится здесь! Он берётся из переменной окружения на сервере.
-const API_ENDPOINT = '/api/chat';
-const AI_MODEL = 'llama-3.1-8b-instant'; // Актуальная модель
+// 🔑 GROQ API SETTINGS - ИСПРАВЛЕНО ДЛЯ GITHUB PAGES
+const GROQ_API_KEY = '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';
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const AI_MODEL = 'mixtral-8x7b-32768';
 
 const i18n = {
     ru: {
         page_title: "Studio Key — Разработка сайтов под ключ",
         nav_services: "Услуги", nav_portfolio: "Портфолио", nav_calc: "Калькулятор", nav_prices: "Цены", nav_contacts: "Контакты",
-        slide1_kicker: "🚀 Профессиональная разработка", slide1_title: "Сайты, которые приносят прибыль", slide1_sub: "Современные, быстрые и адаптивные решения для бизнеса. Запуск за 10-21 день.", slide1_btn1: "Рассчитать стоимость", slide1_btn2: "Наши работы",
-        slide2_kicker: "💼 80+ успешных проектов", slide2_title: "От лендинга до интернет-магазина", slide2_sub: "Любая сложность: от простых страниц до сложных CRM-систем и маркетплейсов.", slide2_btn1: "Калькулятор", slide2_btn2: "WhatsApp",
-        slide3_kicker: "👨‍💻 Команда профессионалов", slide3_title: "Поддержка 24/7 и гарантия", slide3_sub: "Не бросаем после запуска. Техническая поддержка, обучение, доработки. Гарантия 6 месяцев.", slide3_btn1: "Получить консультацию", slide3_btn2: "Узнать больше",
+        slide1_kicker: "🚀 Профессиональная разработка", slide1_title: "Сайты, которые приносят прибыль", slide1_sub: "Современные, быстрые и адаптивные решения для бизнеса. Запуск за 10-21 день.",
+        slide2_kicker: "💼 80+ успешных проектов", slide2_title: "От лендинга до интернет-магазина", slide2_sub: "Любая сложность: от простых страниц до сложных CRM-систем и маркетплейсов.",
+        slide3_kicker: "👨‍💻 Команда профессионалов", slide3_title: "Поддержка 24/7 и гарантия", slide3_sub: "Не бросаем после запуска. Техническая поддержка, обучение, доработки. Гарантия 6 месяцев.",
         video_btn: "Смотреть видео о нас", video_title: "Как мы создаём сайты", video_desc: "Посмотрите 2-минутное видео о нашем подходе.",
         vf1: "✅ Прозрачный процесс", vf2: "✅ Еженедельные отчёты", vf3: "✅ Индивидуальный дизайн", vf4: "✅ Гарантия 6 месяцев",
         calc_title: "Калькулятор стоимости", calc_desc: "Рассчитайте предварительную стоимость за 1 минуту", calc_type: "Тип сайта:",
@@ -24,7 +24,7 @@ const i18n = {
         calc_total: "Примерная стоимость:", calc_btn: "Заказать со скидкой 10%",
         adv_title: "Почему выбирают нас", adv_desc: "Берём на себя весь цикл создания сайта",
         adv1_title: "Быстро", adv1_desc: "Запуск от 10 дней без потери качества", adv2_title: "Качественно", adv2_desc: "Продуманный UX, чистый код",
-        adv3_title: "Адаптивно", adv3_desc: "Идеально работает на телефонах и ПК", adv4_title: "SEO-готово", adv4_desc: "Техническая оптимизация с нуля",
+        adv3_title: "Адаптивно", adv3_desc: "Идеально работает на телефонах и ПК", adv4_title: "SEO-готово", adv4_desc: "Техническая оптимизация встроена",
         services_title: "Услуги и тарифы", services_desc: "Выберите подходящий формат", badge_popular: "Популярно",
         svc_landing: "Лендинг", svc_landing_desc: "Одностраничный сайт для быстрого запуска.",
         svc_corp: "Корпоративный сайт", svc_corp_desc: "Многостраничный сайт с блогом и CRM.",
@@ -34,10 +34,10 @@ const i18n = {
         sc1: "✓ До 10 страниц", sc2: "✓ CMS управление", sc3: "✓ Интеграции (CRM, карты)", sc4: "✓ Многоязычность",
         ss1: "✓ Каталог и карточки", ss2: "✓ Корзина + оплата", ss3: "✓ Личный кабинет", ss4: "✓ Аналитика продаж",
         portfolio_title: "Портфолио", portfolio_desc: "Недавние проекты",
-        pt1: "FinTech Платёжная система", pt2: "SaaS Управление проектами", pt3: "DevOps Платформа", pt4: "Студия Дизайна", pt5: "NoCode Конструктор", pt6: "Магазин Электроники",
-        p1: "Корпоративный сайт с API.", p2: "Лендинг для B2B продукта.", p3: "Сайт-презентация.", p4: "Минималистичное портфолио.", p5: "Образовательная платформа.", p6: "E-commerce.",
+        pt1: "FinTech Платёжная система", pt2: "SaaS Управление проектами", pt3: "DevOps Платформа", pt4: "Студия Дизайна", pt5: "NoCode Конструктор", pt6: "Электроника",
+        p1: "Корпоративный сайт с API.", p2: "Лендинг для B2B продукта.", p3: "Сайт-презентация.", p4: "Минималистичное портфолио.", p5: "Образовательная платформа.", p6: "Интернет-магазин.",
         process_title: "Этапы работы", process_desc: "Прозрачный процесс от заявки до запуска",
-        step1: "Заявка и бриф", step1_desc: "Обсуждаем цели.", step2: "Дизайн и прототип", step2_desc: "Создаём концепцию.", step3: "Разработка", step3_desc: "Код и интеграции.", step4: "Тест и запуск", step4_desc: "Проверка и обучение.",
+        step1: "Заявка и бриф", step1_desc: "Обсуждаем цели.", step2: "Дизайн и прототип", step2_desc: "Создаём концепцию.", step3: "Разработка", step3_desc: "Вёрстка и интеграции.", step4: "Тест и запуск", step4_desc: "Проверка и развёртывание.",
         contact_title: "Расскажите о проекте", contact_desc: "Ответим в течение рабочего дня.", work_hours: "Пн-Пт: 9:00 - 18:00", messengers: "Мессенджеры:",
         f_name: "Имя *", f_phone: "Телефон *", f_email: "Email *", f_msg: "Сообщение", f_sub: "Подписаться на новости", f_submit: "Отправить заявку", f_note: "🔒 Данные защищены.",
         ph_name: "Как к вам обращаться", ph_phone: "+7 ( ) _ --", ph_email: "you@example.com", ph_msg: "Кратко опишите задачу",
@@ -51,9 +51,9 @@ const i18n = {
     en: {
         page_title: "Studio Key — Web Development",
         nav_services: "Services", nav_portfolio: "Portfolio", nav_calc: "Calculator", nav_prices: "Pricing", nav_contacts: "Contacts",
-        slide1_kicker: "🚀 Professional Dev", slide1_title: "Sites that drive profit", slide1_sub: "Modern, fast, responsive solutions. Launch in 10-21 days.", slide1_btn1: "Calculate Cost", slide1_btn2: "Our Works",
-        slide2_kicker: "💼 80+ projects", slide2_title: "From landing to e-commerce", slide2_sub: "Any complexity: from simple pages to CRM systems.", slide2_btn1: "Calculator", slide2_btn2: "WhatsApp",
-        slide3_kicker: "👨‍💻 Pro Team", slide3_title: "24/7 Support", slide3_sub: "We don't abandon you. Tech support & updates. 6-month warranty.", slide3_btn1: "Get Consultation", slide3_btn2: "Learn More",
+        slide1_kicker: "🚀 Professional Dev", slide1_title: "Sites that drive profit", slide1_sub: "Modern, fast, responsive solutions. Launch in 10-21 days.",
+        slide2_kicker: "💼 80+ projects", slide2_title: "From landing to e-commerce", slide2_sub: "Any complexity: from simple pages to CRM systems.",
+        slide3_kicker: "👨‍💻 Pro Team", slide3_title: "24/7 Support", slide3_sub: "We don't abandon you. Tech support & updates. 6-month warranty.",
         video_btn: "Watch Video", video_title: "How We Build", video_desc: "2-min video about our approach.",
         vf1: "✅ Transparent process", vf2: "✅ Weekly reports", vf3: "✅ Custom design", vf4: "✅ 6-month warranty",
         calc_title: "Cost Calculator", calc_desc: "Estimate price in 1 min", calc_type: "Site Type:",
@@ -101,7 +101,7 @@ function showNotification(message, type = 'success') {
     const borderColor = type === 'success' ? '#10b981' : '#ef4444';
     const icon = type === 'success' ? '✅' : '❌';
     
-    notification.style.cssText = `position: fixed; top: 20px; right: 20px; background: #151e32; border: 1px solid rgba(255,255,255,0.1); border-left: 4px solid ${borderColor}; color: #f8fafc; padding: 16px 24px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 10001; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 12px; max-width: 400px; animation: slideInNotif 0.4s ease forwards; font-family: 'Inter', sans-serif;`;
+    notification.style.cssText = `position: fixed; top: 20px; right: 20px; background: #151e32; border: 1px solid rgba(255,255,255,0.1); border-left: 4px solid ${borderColor}; color: #f8fafc; padding: 12px 16px; border-radius: 6px; display: flex; gap: 10px; align-items: center; z-index: 10000; animation: slideInNotif 0.4s ease;`;
     notification.innerHTML = `<span style="font-size:1.2rem">${icon}</span><span>${message}</span>`;
     
     document.body.appendChild(notification);
@@ -363,8 +363,47 @@ function closeVideoModal() {
 }
 
 // ==========================================
-// 🤖 REAL AI CHAT (Secure via Netlify Function)
+// 🤖 AI CHAT - РАБОТАЕТ НАПРЯМУЮ С GROQ API
 // ==========================================
+
+// ✅ НОВАЯ ФУНКЦИЯ - Работает напрямую с Groq API
+async function queryAI(userMessage) {
+    try {
+        const response = await fetch(GROQ_API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${GROQ_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: AI_MODEL,
+                messages: [{
+                    role: 'system',
+                    content: currentLang === 'ru' 
+                        ? 'Ты помощник Studio Key. Помогаешь о ценах, услугах, сроках разработки сайтов. Ответы краткие и понятные.'
+                        : 'You are Studio Key assistant. Help customers with prices, services, and development timelines. Be concise and helpful.'
+                }, {
+                    role: 'user',
+                    content: userMessage
+                }],
+                max_tokens: 500,
+                temperature: 0.7
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error?.message || `API Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } catch (error) {
+        console.error('AI Chat Error:', error);
+        throw error;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const chatWin = document.querySelector('.chat-window');
     const chatMsg = document.getElementById('chatMessages');
@@ -372,27 +411,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatToggle = document.getElementById('chatToggle');
     const chatCloseBtn = document.querySelector('.chat-close');
     const chatSendBtn = document.querySelector('.chat-send');
-
-    // Функция запроса к AI через безопасный прокси
-    async function queryAI(userMessage) {
-        const response = await fetch(API_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                message: userMessage,
-                lang: currentLang,
-                model: AI_MODEL
-            })
-        });
-
-        if (!response.ok) {
-            const err = await response.json().catch(() => ({}));
-            throw new Error(err.error || `HTTP ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data.reply;
-    }
 
     window.toggleChat = () => { if (chatWin) chatWin.classList.toggle('open'); };
     if (chatToggle) chatToggle.addEventListener('click', toggleChat);
@@ -435,8 +453,8 @@ document.addEventListener('DOMContentLoaded', () => {
             errorDiv.className = 'msg bot';
             errorDiv.style.color = '#ef4444';
             errorDiv.textContent = currentLang === 'ru'
-                ? `❌ Ошибка: ${error.message}. Проверьте настройки сервера.`
-                : `❌ Error: ${error.message}. Check server settings.`;
+                ? `❌ Ошибка: ${error.message}`
+                : `❌ Error: ${error.message}`;
             chatMsg.appendChild(errorDiv);
             chatMsg.scrollTop = chatMsg.scrollHeight;
             console.error('AI Chat Error:', error);
@@ -470,5 +488,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const obs = new IntersectionObserver(e => {
         e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('[data-animate]').forEach(el => obs.observe(el));
-});
+    document.querySelectorAll('[data-animate]').forEach(el => obs.observe(el));*
