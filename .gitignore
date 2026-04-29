@@ -1,0 +1,14 @@
+# Никогда не коммитьте API ключи!
+.env
+.env.local
+.env.production
+config.js
+secrets.js
+*.log
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
