@@ -11,13 +11,41 @@ const API_ENDPOINT = location.hostname.endsWith('netlify.app') || location.hostn
 
 const AI_MODEL = 'llama-3.1-8b-instant';
 
+// 🔒 ФУНКЦИЯ АНОНИМИЗАЦИИ (152-ФЗ compliance)
+// Удаляет персональные данные перед отправкой в AI
+function anonymizeMessage(text) {
+  return text
+    // Телефоны (разные форматы)
+    .replace(/\+7\s?\(?\d{3}\)?\s?\d{3}-?\d{2}-?\d{2}/g, '[номер телефона]')
+    .replace(/8\s?\(?\d{3}\)?\s?\d{3}-?\d{2}-?\d{2}/g, '[номер телефона]')
+    .replace(/\d{10,11}/g, (match) => match.length >= 10 ? '[номер телефона]' : match)
+    
+    // Email адреса
+    .replace(/[\w.-]+@[\w.-]+\.\w+/g, '[email]')
+    
+    // Имена (после слов "меня зовут", "мое имя" и т.д.)
+    .replace(/(?:меня\s+зовут|мое\s+имя|зовут)\s+([А-ЯЁ][а-яё]+)/gi, 'клиент')
+    
+    // Компании (ООО, ИП, ЗАО и т.д.)
+    .replace(/(?:ООО|ИП|ЗАО|АО|ПАО)\s+"?[^"\s,\.]+"?/gi, '[компания]')
+    
+    // Адреса (улицы, дома)
+    .replace(/(?:ул\.|улица|дом|д\.|кв\.|квартира)\s+\S+/gi, '[адрес]')
+    
+    // Паспортные данные
+    .replace(/\d{4}\s?\d{6}/g, '[паспортные данные]')
+    
+    // СНИЛС
+    .replace(/\d{3}-\d{3}-\d{3}\s?\d{2}/g, '[СНИЛС]');
+}
+
 const i18n = {
   ru: {
     page_title: "Studio Key — Разработка сайтов под ключ",
     nav_services: "Услуги", nav_portfolio: "Портфолио", nav_calc: "Калькулятор", nav_prices: "Цены", nav_contacts: "Контакты",
     slide1_kicker: "🚀 Профессиональная разработка", slide1_title: "Сайты, которые приносят прибыль", slide1_sub: "Современные, быстрые и адаптивные решения для бизнеса. Запуск за 10-21 день.", slide1_btn1: "Рассчитать стоимость", slide1_btn2: "Наши работы",
     slide2_kicker: "💼 80+ успешных проектов", slide2_title: "От лендинга до интернет-магазина", slide2_sub: "Любая сложность: от простых страниц до сложных CRM-систем и маркетплейсов.", slide2_btn1: "Калькулятор", slide2_btn2: "WhatsApp",
-    slide3_kicker: "👨‍💻 Команда профессионалов", slide3_title: "Поддержка 24/7 и гарантия", slide3_sub: "Не бросаем после запуска. Техническая поддержка, обучение, доработки. Гарантия 6 месяцев.", slide3_btn1: "Получить консультацию", slide3_btn2: "Узнать больше",
+    slide3_kicker: "👨💻 Команда профессионалов", slide3_title: "Поддержка 24/7 и гарантия", slide3_sub: "Не бросаем после запуска. Техническая поддержка, обучение, доработки. Гарантия 6 месяцев.", slide3_btn1: "Получить консультацию", slide3_btn2: "Узнать больше",
     video_btn: "Смотреть видео о нас", video_title: "Как мы создаём сайты", video_desc: "Посмотрите 2-минутное видео о нашем подходе.",
     vf1: "✅ Прозрачный процесс", vf2: "✅ Еженедельные отчёты", vf3: "✅ Индивидуальный дизайн", vf4: "✅ Гарантия 6 месяцев",
     calc_title: "Калькулятор стоимости", calc_desc: "Рассчитайте предварительную стоимость за 1 минуту", calc_type: "Тип сайта:",
@@ -46,11 +74,11 @@ const i18n = {
     footer_about: "Разработка сайтов с 2019 года.", f_links: "Ссылки", f_legal: "Документы", privacy: "Политика", terms: "Условия", f_contacts: "Контакты", rights: "Все права защищены.",
     modal_cb_title: "Заказать звонок", modal_cb_desc: "Перезвоним за 5 минут", ph_phone_modal: "+7 ( ) _ --", modal_cb_sub: "Подписаться", modal_cb_btn: "Жду звонка",
     chat_title: "💬 AI Ассистент", chat_welcome: "Привет! Я AI-помощник Studio Key. Спросите меня о ценах, сроках или услугах. 👇", chat_ph: "Введите вопрос...",
-    cookie_text: "💬 Мы используем cookies.", cookie_accept: "Принять",
+    cookie_text: " Мы используем cookies.", cookie_accept: "Принять",
     val_required: "Обязательное поле", val_email: "Введите email", val_phone: "Введите телефон",
     chat_typing: "AI печатает...",
     ai_prices: "💰 Наши цены:\n• Лендинг — 15 000₽\n• Корпоративный — 40 000₽\n• Интернет-магазин — 80 000₽",
-    ai_timeline: "⏱ Сроки разработки:\n• Лендинг — 10-14 дней\n• Корпоративный — 14-21 день\n• Магазин — 21-30 дней",
+    ai_timeline: " Сроки разработки:\n• Лендинг — 10-14 дней\n• Корпоративный — 14-21 день\n• Магазин — 21-30 дней",
     ai_support: "🛠 Мы предоставляем:\n• Гарантию 6 месяцев\n• Техподдержку 24/7\n• Бесплатные правки",
     ai_default: "Спасибо за вопрос! Оставьте заявку в форме ниже, и мы подробно ответим на все вопросы. Или напишите нам в WhatsApp/Telegram!"
   },
@@ -87,7 +115,7 @@ const i18n = {
     ph_name: "Your name", ph_phone: "+1 ( ) _ -", ph_email: "you@example.com", ph_msg: "Describe task",
     footer_about: "Web dev since 2019.", f_links: "Links", f_legal: "Legal", privacy: "Privacy", terms: "Terms", f_contacts: "Contacts", rights: "All rights reserved.",
     modal_cb_title: "Request Callback", modal_cb_desc: "Call in 5 min", ph_phone_modal: "+1 ( ) _ -", modal_cb_sub: "Subscribe", modal_cb_btn: "Call Me",
-    chat_title: "💬 AI Assistant", chat_welcome: "Hi! I'm Studio Key AI. Ask about prices, terms, or services. 👇", chat_ph: "Type a question...",
+    chat_title: "💬 AI Assistant", chat_welcome: "Hi! I'm Studio Key AI. Ask about prices, terms, or services. ", chat_ph: "Type a question...",
     cookie_text: "We use cookies.", cookie_accept: "Accept",
     val_required: "Required field", val_email: "Enter valid email", val_phone: "Enter valid phone",
     chat_typing: "AI is typing...",
@@ -111,6 +139,7 @@ function showNotification(message, type = 'success') {
   const borderColor = type === 'success' ? '#10b981' : '#ef4444';
   const icon = type === 'success' ? '✅' : '❌';
   
+  // Исправлена разорванная строка border-radius
   notification.style.cssText = `position: fixed; top: 20px; right: 20px; background: #151e32; border: 1px solid rgba(255,255,255,0.1); border-left: 4px solid ${borderColor}; color: #f8fafc; padding: 16px 24px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 10001; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 12px; max-width: 400px; animation: slideInNotif 0.4s ease forwards; font-family: 'Inter', sans-serif;`;
   notification.innerHTML = `<span style="font-size:1.2rem">${icon}</span><span>${message}</span>`;
   
@@ -402,7 +431,7 @@ function closeVideoModal() {
 }
 
 // ==========================================
-// 🤖 AI CHAT - Netlify Functions + Fallback
+// 🤖 AI CHAT - Netlify Functions + АНОНИМИЗАЦИЯ
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   const chatWin = document.querySelector('.chat-window');
@@ -459,9 +488,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const rawTxt = chatIn.value.trim();
     if (!rawTxt) return;
 
+    // 🔒 АНОНИМИЗИРУЕМ текст перед отправкой в AI
+    const anonymizedTxt = anonymizeMessage(rawTxt);
+
     const userDiv = document.createElement('div');
     userDiv.className = 'msg user';
-    userDiv.textContent = rawTxt;
+    userDiv.textContent = rawTxt; // Показываем пользователю его оригинальный текст
     chatMsg.appendChild(userDiv);
     chatIn.value = '';
     chatMsg.scrollTop = chatMsg.scrollHeight;
@@ -476,7 +508,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Пытаемся получить ответ от Netlify Function
-      const answer = await queryAI(rawTxt);
+      // Передаем anonymizedTxt вместо rawTxt!
+      const answer = await queryAI(anonymizedTxt);
       chatMsg.removeChild(typingDiv);
       
       const botDiv = document.createElement('div');
