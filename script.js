@@ -4,14 +4,18 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// 🔗 Cloudflare Worker Endpoint (запрос идет сюда, а не напрямую в Groq)
-const API_ENDPOINT = 'https://groq-proxy.grog641.workers.dev';
+// 🔗 УМНОЕ ОПРЕДЕЛЕНИЕ ENDPOINT (работает на Netlify и GitHub Pages)
+const API_ENDPOINT = location.hostname.endsWith('netlify.app') || location.hostname === 'localhost'
+  ? '/.netlify/functions/chat'
+  : 'https://studio-key-site.netlify.app/.netlify/functions/chat';
+
+const AI_MODEL = 'llama-3.1-8b-instant';
 
 const i18n = {
   ru: {
     page_title: "Studio Key — Разработка сайтов под ключ",
     nav_services: "Услуги", nav_portfolio: "Портфолио", nav_calc: "Калькулятор", nav_prices: "Цены", nav_contacts: "Контакты",
-    slide1_kicker: " Профессиональная разработка", slide1_title: "Сайты, которые приносят прибыль", slide1_sub: "Современные, быстрые и адаптивные решения для бизнеса. Запуск за 10-21 день.", slide1_btn1: "Рассчитать стоимость", slide1_btn2: "Наши работы",
+    slide1_kicker: "🚀 Профессиональная разработка", slide1_title: "Сайты, которые приносят прибыль", slide1_sub: "Современные, быстрые и адаптивные решения для бизнеса. Запуск за 10-21 день.", slide1_btn1: "Рассчитать стоимость", slide1_btn2: "Наши работы",
     slide2_kicker: "💼 80+ успешных проектов", slide2_title: "От лендинга до интернет-магазина", slide2_sub: "Любая сложность: от простых страниц до сложных CRM-систем и маркетплейсов.", slide2_btn1: "Калькулятор", slide2_btn2: "WhatsApp",
     slide3_kicker: "👨‍💻 Команда профессионалов", slide3_title: "Поддержка 24/7 и гарантия", slide3_sub: "Не бросаем после запуска. Техническая поддержка, обучение, доработки. Гарантия 6 месяцев.", slide3_btn1: "Получить консультацию", slide3_btn2: "Узнать больше",
     video_btn: "Смотреть видео о нас", video_title: "Как мы создаём сайты", video_desc: "Посмотрите 2-минутное видео о нашем подходе.",
@@ -42,11 +46,11 @@ const i18n = {
     footer_about: "Разработка сайтов с 2019 года.", f_links: "Ссылки", f_legal: "Документы", privacy: "Политика", terms: "Условия", f_contacts: "Контакты", rights: "Все права защищены.",
     modal_cb_title: "Заказать звонок", modal_cb_desc: "Перезвоним за 5 минут", ph_phone_modal: "+7 ( ) _ --", modal_cb_sub: "Подписаться", modal_cb_btn: "Жду звонка",
     chat_title: "💬 AI Ассистент", chat_welcome: "Привет! Я AI-помощник Studio Key. Спросите меня о ценах, сроках или услугах. 👇", chat_ph: "Введите вопрос...",
-    cookie_text: " Мы используем cookies.", cookie_accept: "Принять",
+    cookie_text: "💬 Мы используем cookies.", cookie_accept: "Принять",
     val_required: "Обязательное поле", val_email: "Введите email", val_phone: "Введите телефон",
     chat_typing: "AI печатает...",
     ai_prices: "💰 Наши цены:\n• Лендинг — 15 000₽\n• Корпоративный — 40 000₽\n• Интернет-магазин — 80 000₽",
-    ai_timeline: " Сроки разработки:\n• Лендинг — 10-14 дней\n• Корпоративный — 14-21 день\n• Магазин — 21-30 дней",
+    ai_timeline: "⏱ Сроки разработки:\n• Лендинг — 10-14 дней\n• Корпоративный — 14-21 день\n• Магазин — 21-30 дней",
     ai_support: "🛠 Мы предоставляем:\n• Гарантию 6 месяцев\n• Техподдержку 24/7\n• Бесплатные правки",
     ai_default: "Спасибо за вопрос! Оставьте заявку в форме ниже, и мы подробно ответим на все вопросы. Или напишите нам в WhatsApp/Telegram!"
   },
@@ -79,17 +83,17 @@ const i18n = {
     process_title: "Workflow", process_desc: "From request to launch",
     step1: "Brief", step1_desc: "Discuss goals.", step2: "Design", step2_desc: "Create concept.", step3: "Dev", step3_desc: "Code & Integrate.", step4: "Launch", step4_desc: "Test & Deploy.",
     contact_title: "Tell us about project", contact_desc: "Reply within 1 business day.", work_hours: "Mon-Fri: 9AM - 6PM", messengers: "Messengers:",
-    f_name: "Name *", f_phone: "Phone *", f_email: "Email *", f_msg: "Message", f_sub: "Subscribe", f_submit: "Send Request", f_note: " Data protected.",
+    f_name: "Name *", f_phone: "Phone *", f_email: "Email *", f_msg: "Message", f_sub: "Subscribe", f_submit: "Send Request", f_note: "🔒 Data protected.",
     ph_name: "Your name", ph_phone: "+1 ( ) _ -", ph_email: "you@example.com", ph_msg: "Describe task",
     footer_about: "Web dev since 2019.", f_links: "Links", f_legal: "Legal", privacy: "Privacy", terms: "Terms", f_contacts: "Contacts", rights: "All rights reserved.",
     modal_cb_title: "Request Callback", modal_cb_desc: "Call in 5 min", ph_phone_modal: "+1 ( ) _ -", modal_cb_sub: "Subscribe", modal_cb_btn: "Call Me",
-    chat_title: " AI Assistant", chat_welcome: "Hi! I'm Studio Key AI. Ask about prices, terms, or services. 👇", chat_ph: "Type a question...",
+    chat_title: "💬 AI Assistant", chat_welcome: "Hi! I'm Studio Key AI. Ask about prices, terms, or services. 👇", chat_ph: "Type a question...",
     cookie_text: "We use cookies.", cookie_accept: "Accept",
     val_required: "Required field", val_email: "Enter valid email", val_phone: "Enter valid phone",
     chat_typing: "AI is typing...",
-    ai_prices: " Our prices:\n• Landing — $170\n• Corporate — $460\n• E-commerce — $920",
+    ai_prices: "💰 Our prices:\n• Landing — $170\n• Corporate — $460\n• E-commerce — $920",
     ai_timeline: "⏱ Development time:\n• Landing — 10-14 days\n• Corporate — 14-21 days\n• Store — 21-30 days",
-    ai_support: " We provide:\n• 6-month warranty\n• 24/7 tech support\n• Free revisions",
+    ai_support: "🛠 We provide:\n• 6-month warranty\n• 24/7 tech support\n• Free revisions",
     ai_default: "Thanks for your question! Leave a request in the form below and we'll answer all your questions. Or write to us on WhatsApp/Telegram!"
   }
 };
@@ -398,7 +402,7 @@ function closeVideoModal() {
 }
 
 // ==========================================
-// 🤖 AI CHAT - Cloudflare Worker Proxy
+// 🤖 AI CHAT - Netlify Functions + Fallback
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   const chatWin = document.querySelector('.chat-window');
@@ -408,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatCloseBtn = document.querySelector('.chat-close');
   const chatSendBtn = document.querySelector('.chat-send');
 
-  // Локальные ответы (fallback если Cloudflare недоступен)
+  // Локальные ответы (fallback)
   function getAIResponse(message) {
     const msg = message.toLowerCase();
     const responses = i18n[currentLang];
@@ -424,6 +428,27 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       return responses.ai_default;
     }
+  }
+
+  // Запрос к Netlify Function
+  async function queryAI(userMessage) {
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: userMessage,
+        lang: currentLang,
+        model: AI_MODEL
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.reply;
   }
 
   window.toggleChat = () => { if (chatWin) chatWin.classList.toggle('open'); };
@@ -450,32 +475,22 @@ document.addEventListener('DOMContentLoaded', () => {
     chatMsg.scrollTop = chatMsg.scrollHeight;
 
     try {
-      // Отправляем запрос на Cloudflare Worker
-      const response = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: rawTxt, lang: currentLang })
-      });
-
-      if (!response.ok) throw new Error('Cloudflare error');
-
-      const data = await response.json();
-      const answer = data.reply;
-      
+      // Пытаемся получить ответ от Netlify Function
+      const answer = await queryAI(rawTxt);
       chatMsg.removeChild(typingDiv);
       
       const botDiv = document.createElement('div');
       botDiv.className = 'msg bot';
       botDiv.textContent = answer;
-      botDiv.style.whiteSpace = 'pre-line';
       chatMsg.appendChild(botDiv);
       chatMsg.scrollTop = chatMsg.scrollHeight;
     } catch (error) {
-      // FALLBACK: используем локальные ответы если Worker недоступен
+      // FALLBACK: если функция недоступна, используем локальные ответы
       console.warn('AI API error, using fallback:', error.message);
       chatMsg.removeChild(typingDiv);
       
       const answer = getAIResponse(rawTxt);
+      
       const botDiv = document.createElement('div');
       botDiv.className = 'msg bot';
       botDiv.textContent = answer;
