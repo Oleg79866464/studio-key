@@ -4,8 +4,8 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// 🔑 GROQ API SETTINGS - ВСТАВЬТЕ СВОЙ API КЛЮЧ
-const GROQ_API_KEY = 'gsk_YOUR_API_KEY_HERE'; // Замените на ваш ключ Groq
+// 🔑 NETLIFY FUNCTION URL
+const API_ENDPOINT = 'https://studio-key-site.netlify.app/.netlify/functions/chat';
 const AI_MODEL = 'llama-3.1-8b-instant';
 
 const i18n = {
@@ -402,7 +402,7 @@ function closeVideoModal() {
 }
 
 // ==========================================
-// 🤖 AI CHAT - GROQ API для GitHub Pages
+// 🤖 AI CHAT - Netlify Functions
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   const chatWin = document.querySelector('.chat-window');
@@ -430,41 +430,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Прямой запрос к Groq API
-  async function queryGroqAPI(userMessage) {
-    if (!GROQ_API_KEY || GROQ_API_KEY === 'gsk_YOUR_API_KEY_HERE') {
-      throw new Error('API key not set');
-    }
-
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+  // Запрос к Netlify Function
+  async function queryAI(userMessage) {
+    const response = await fetch(API_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_API_KEY}`
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: AI_MODEL,
-        messages: [
-          { 
-            role: "system", 
-            content: currentLang === 'ru' 
-              ? "Ты помощник веб-студии Studio Key. Отвечай кратко и по делу на русском языке. Наши цены: Лендинг 15 000₽, Корпоративный сайт 40 000₽, Интернет-магазин 80 000₽. Сроки: 10-30 дней. Предоставляем гарантию 6 месяцев и техподдержку 24/7." 
-              : "You are Studio Key web development assistant. Answer briefly in English. Our prices: Landing $170, Corporate $460, E-commerce $920. Timeline: 10-30 days. We provide 6-month warranty and 24/7 support."
-          },
-          { role: "user", content: userMessage }
-        ],
-        temperature: 0.7,
-        max_tokens: 500
+        message: userMessage,
+        lang: currentLang,
+        model: AI_MODEL
       })
     });
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      throw new Error(error.error?.message || `HTTP ${response.status}`);
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error || `HTTP ${response.status}`);
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    return data.reply;
   }
 
   window.toggleChat = () => { if (chatWin) chatWin.classList.toggle('open'); };
@@ -491,21 +475,12 @@ document.addEventListener('DOMContentLoaded', () => {
     chatMsg.scrollTop = chatMsg.scrollHeight;
 
     try {
-      let answer;
-      // Если API ключ не установлен, используем mock-ответы
-      if (!GROQ_API_KEY || GROQ_API_KEY === 'gsk_YOUR_API_KEY_HERE') {
-        await new Promise(resolve => setTimeout(resolve, 800));
-        answer = getAIResponse(rawTxt);
-      } else {
-        answer = await queryGroqAPI(rawTxt);
-      }
-      
+      const answer = await queryAI(rawTxt);
       chatMsg.removeChild(typingDiv);
       
       const botDiv = document.createElement('div');
       botDiv.className = 'msg bot';
       botDiv.textContent = answer;
-      botDiv.style.whiteSpace = 'pre-line';
       chatMsg.appendChild(botDiv);
       chatMsg.scrollTop = chatMsg.scrollHeight;
     } catch (error) {
@@ -515,8 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
       errorDiv.className = 'msg bot';
       errorDiv.style.color = '#ef4444';
       errorDiv.textContent = currentLang === 'ru' 
-        ? `❌ Ошибка: ${error.message}. Проверьте API ключ.` 
-        : `❌ Error: ${error.message}. Check API key.`;
+        ? `❌ Ошибка: ${error.message}. Проверьте настройки сервера.` 
+        : `❌ Error: ${error.message}. Check server settings.`;
       chatMsg.appendChild(errorDiv);
       chatMsg.scrollTop = chatMsg.scrollHeight;
       console.error('AI Chat Error:', error);
