@@ -4,8 +4,11 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// 🔗 Адрес функции на Netlify (относительный путь)
-const API_ENDPOINT = '/.netlify/functions/chat';
+// 🔗 УМНОЕ ОПРЕДЕЛЕНИЕ ENDPOINT (работает на Netlify и GitHub Pages)
+const API_ENDPOINT = location.hostname.endsWith('netlify.app') || location.hostname === 'localhost'
+  ? '/.netlify/functions/chat'
+  : 'https://studio-key-site.netlify.app/.netlify/functions/chat';
+
 const AI_MODEL = 'llama-3.1-8b-instant';
 
 const i18n = {
@@ -156,7 +159,6 @@ function applyLanguage(lang) {
   localStorage.setItem('sk_lang', lang);
   document.documentElement.lang = lang;
   
-  // FIX: Очистка ошибок валидации при смене языка
   document.querySelectorAll('.field-error').forEach(error => error.remove());
   document.querySelectorAll('input, textarea').forEach(field => {
     field.style.borderColor = '';
@@ -341,7 +343,6 @@ function calc() {
 
 document.querySelectorAll('input[name="siteType"], input[name="extras"]').forEach(el => el.addEventListener('change', calc));
 
-// Переключение карточек услуг
 document.querySelectorAll('.service-card').forEach(card => {
   card.addEventListener('click', () => {
     document.querySelectorAll('.service-card').forEach(c => {
@@ -365,7 +366,6 @@ function closeModal(id) { document.getElementById(id)?.classList.remove('active'
 document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); }));
 document.querySelectorAll('[data-modal-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn.dataset.modalClose)));
 
-// Модальные окна услуг
 document.querySelectorAll('[data-service-modal]').forEach(btn => {
   btn.addEventListener('click', () => {
     const service = btn.dataset.serviceModal;
