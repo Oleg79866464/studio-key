@@ -4,8 +4,8 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// 🔑 NETLIFY FUNCTION URL
-const API_ENDPOINT = 'https://studio-key-site.netlify.app/.netlify/functions/chat';
+// 🔑 NETLIFY FUNCTION URL (относительный путь)
+const API_ENDPOINT = '/.netlify/functions/chat';
 const AI_MODEL = 'llama-3.1-8b-instant';
 
 const i18n = {
@@ -402,7 +402,7 @@ function closeVideoModal() {
 }
 
 // ==========================================
-// 🤖 AI CHAT - Netlify Functions
+// 🤖 AI CHAT - Netlify Functions + Fallback
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   const chatWin = document.querySelector('.chat-window');
@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatCloseBtn = document.querySelector('.chat-close');
   const chatSendBtn = document.querySelector('.chat-send');
 
-  // AI ответы для GitHub Pages (без сервера)
+  // AI ответы для GitHub Pages (без сервера) - FALLBACK
   function getAIResponse(message) {
     const msg = message.toLowerCase();
     const responses = i18n[currentLang];
@@ -475,6 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chatMsg.scrollTop = chatMsg.scrollHeight;
 
     try {
+      // Пытаемся получить ответ от Netlify Function
       const answer = await queryAI(rawTxt);
       chatMsg.removeChild(typingDiv);
       
@@ -484,17 +485,18 @@ document.addEventListener('DOMContentLoaded', () => {
       chatMsg.appendChild(botDiv);
       chatMsg.scrollTop = chatMsg.scrollHeight;
     } catch (error) {
+      // FALLBACK: если функция недоступна, используем локальные ответы
+      console.warn('AI API error, using fallback:', error.message);
       chatMsg.removeChild(typingDiv);
       
-      const errorDiv = document.createElement('div');
-      errorDiv.className = 'msg bot';
-      errorDiv.style.color = '#ef4444';
-      errorDiv.textContent = currentLang === 'ru' 
-        ? `❌ Ошибка: ${error.message}. Проверьте настройки сервера.` 
-        : `❌ Error: ${error.message}. Check server settings.`;
-      chatMsg.appendChild(errorDiv);
+      const answer = getAIResponse(rawTxt);
+      
+      const botDiv = document.createElement('div');
+      botDiv.className = 'msg bot';
+      botDiv.textContent = answer;
+      botDiv.style.whiteSpace = 'pre-line';
+      chatMsg.appendChild(botDiv);
       chatMsg.scrollTop = chatMsg.scrollHeight;
-      console.error('AI Chat Error:', error);
     }
   };
 
