@@ -4,7 +4,7 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// 🔑 NETLIFY FUNCTION URL (относительный путь)
+// 🔗 Адрес функции на Netlify (относительный путь)
 const API_ENDPOINT = '/.netlify/functions/chat';
 const AI_MODEL = 'llama-3.1-8b-instant';
 
@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatCloseBtn = document.querySelector('.chat-close');
   const chatSendBtn = document.querySelector('.chat-send');
 
-  // AI ответы для GitHub Pages (без сервера) - FALLBACK
+  // Локальные ответы (fallback)
   function getAIResponse(message) {
     const msg = message.toLowerCase();
     const responses = i18n[currentLang];
