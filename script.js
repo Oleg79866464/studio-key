@@ -4,18 +4,15 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-//  УМНОЕ ОПРЕДЕЛЕНИЕ ENDPOINT (работает на Netlify и GitHub Pages)
-const API_ENDPOINT = location.hostname.endsWith('netlify.app') || location.hostname === 'localhost'
-  ? '/.netlify/functions/chat'
-  : 'https://studio-key-site.netlify.app/.netlify/functions/chat';
-
+// 🔗 Адрес функции на Netlify (относительный путь)
+const API_ENDPOINT = '/.netlify/functions/chat';
 const AI_MODEL = 'llama-3.1-8b-instant';
 
 const i18n = {
   ru: {
     page_title: "Studio Key — Разработка сайтов под ключ",
     nav_services: "Услуги", nav_portfolio: "Портфолио", nav_calc: "Калькулятор", nav_prices: "Цены", nav_contacts: "Контакты",
-    slide1_kicker: " Профессиональная разработка", slide1_title: "Сайты, которые приносят прибыль", slide1_sub: "Современные, быстрые и адаптивные решения для бизнеса. Запуск за 10-21 день.", slide1_btn1: "Рассчитать стоимость", slide1_btn2: "Наши работы",
+    slide1_kicker: "🚀 Профессиональная разработка", slide1_title: "Сайты, которые приносят прибыль", slide1_sub: "Современные, быстрые и адаптивные решения для бизнеса. Запуск за 10-21 день.", slide1_btn1: "Рассчитать стоимость", slide1_btn2: "Наши работы",
     slide2_kicker: "💼 80+ успешных проектов", slide2_title: "От лендинга до интернет-магазина", slide2_sub: "Любая сложность: от простых страниц до сложных CRM-систем и маркетплейсов.", slide2_btn1: "Калькулятор", slide2_btn2: "WhatsApp",
     slide3_kicker: "👨‍💻 Команда профессионалов", slide3_title: "Поддержка 24/7 и гарантия", slide3_sub: "Не бросаем после запуска. Техническая поддержка, обучение, доработки. Гарантия 6 месяцев.", slide3_btn1: "Получить консультацию", slide3_btn2: "Узнать больше",
     video_btn: "Смотреть видео о нас", video_title: "Как мы создаём сайты", video_desc: "Посмотрите 2-минутное видео о нашем подходе.",
@@ -50,7 +47,7 @@ const i18n = {
     val_required: "Обязательное поле", val_email: "Введите email", val_phone: "Введите телефон",
     chat_typing: "AI печатает...",
     ai_prices: "💰 Наши цены:\n• Лендинг — 15 000₽\n• Корпоративный — 40 000₽\n• Интернет-магазин — 80 000₽",
-    ai_timeline: " Сроки разработки:\n• Лендинг — 10-14 дней\n• Корпоративный — 14-21 день\n• Магазин — 21-30 дней",
+    ai_timeline: "⏱ Сроки разработки:\n• Лендинг — 10-14 дней\n• Корпоративный — 14-21 день\n• Магазин — 21-30 дней",
     ai_support: "🛠 Мы предоставляем:\n• Гарантию 6 месяцев\n• Техподдержку 24/7\n• Бесплатные правки",
     ai_default: "Спасибо за вопрос! Оставьте заявку в форме ниже, и мы подробно ответим на все вопросы. Или напишите нам в WhatsApp/Telegram!"
   },
@@ -159,6 +156,7 @@ function applyLanguage(lang) {
   localStorage.setItem('sk_lang', lang);
   document.documentElement.lang = lang;
   
+  // FIX: Очистка ошибок валидации при смене языка
   document.querySelectorAll('.field-error').forEach(error => error.remove());
   document.querySelectorAll('input, textarea').forEach(field => {
     field.style.borderColor = '';
@@ -343,6 +341,7 @@ function calc() {
 
 document.querySelectorAll('input[name="siteType"], input[name="extras"]').forEach(el => el.addEventListener('change', calc));
 
+// Переключение карточек услуг
 document.querySelectorAll('.service-card').forEach(card => {
   card.addEventListener('click', () => {
     document.querySelectorAll('.service-card').forEach(c => {
@@ -366,6 +365,7 @@ function closeModal(id) { document.getElementById(id)?.classList.remove('active'
 document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); }));
 document.querySelectorAll('[data-modal-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn.dataset.modalClose)));
 
+// Модальные окна услуг
 document.querySelectorAll('[data-service-modal]').forEach(btn => {
   btn.addEventListener('click', () => {
     const service = btn.dataset.serviceModal;
